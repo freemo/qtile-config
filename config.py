@@ -1,18 +1,19 @@
 import os, subprocess
 
-#import libqtile
-#import libqtile.config
-#import libqtile.command
-#import libqtile
+import libqtile
+import libqtile.config
+import libqtile.command
+import libqtile
 
-#from libqtile import *
-#from libqtile.config import *
-#from libqtile.command import *
+from libqtile import *
+from libqtile.config import *
+from libqtile.command import *
 
 from libqtile import hook, layout
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, extension
+
 import fontawesome as fa
 
 # ----------------------------
@@ -63,6 +64,24 @@ COLS = {
     'deus_4': '#1A222F',
     'deus_5': '#101A28',
 }
+
+# ----------------------------
+# ----- Workspace Box --------
+# ----------------------------
+
+class WorkspaceBox(widget.GroupBox):
+    def __init__(self, **config):
+        widget.GroupBox.__init__(self, **config)
+
+    @property
+    def groups(self):
+        """
+        returns list of visible groups.
+        The existing groups are filtered by the visible_groups attribute and
+        their label. Groups with an empty string as label are never contained.
+        Groups that are not named in visible_groups are not returned.
+        """
+        return map(lambda g: Group(g.name, label = g.label), widget.GroupBox.groups)
 
 # ----------------------------
 # -------- Hotkeys -----------
@@ -239,7 +258,7 @@ def window_to_room(room):
 groups = []
 for workspace, hotkey in workspaces:
     for room in rooms:
-        groups.append(Group(get_group_name(workspace, room)))
+        groups.append(Group(get_group_name(workspace, room), label=room))
 
 # Assign individual hotkeys for each workspace we have
 for workspace, hotkey in workspaces:
@@ -299,6 +318,13 @@ screens = [
                     text="  ◢",
                     fontsize=(FONT_SIZE*5.15),
                     padding=-1
+                ),
+                widget.TextBox(
+                    font="font-awesome",
+                    foreground=GROUP_FG,
+                    text=(fa.icons['window-restore'] + " -> "),
+                    fontsize=FONT_SIZE,
+                    spacing=0
                 ),
                 widget.GroupBox(
                     visible_groups=get_workspace_groups(wsp['current']),
