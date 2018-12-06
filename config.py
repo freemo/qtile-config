@@ -526,18 +526,6 @@ screens = [
                     line_width=1
                 ),
                 widget.Spacer(
-                    length=10
-                ),
-                widget.TextBox(
-                    font="font-awesome",
-                    text=(""),
-                    fontsize=FONT_SIZE,
-                    padding=0
-                ),
-                widget.ThermalSensor(
-                    fontsize=FONT_SIZE,
-                ),
-                widget.Spacer(
                     length=100
                 ),
                 widget.CheckUpdates(
@@ -566,6 +554,22 @@ screens = [
                 widget.Volume(
                     fontsize=FONT_SIZE,
                     update_interval=2
+                ),
+                widget.Spacer(
+                    length=10
+                ),
+                widget.Sep(),
+                widget.Spacer(
+                    length=10
+                ),
+                widget.TextBox(
+                    font="font-awesome",
+                    text=(""),
+                    fontsize=FONT_SIZE,
+                    padding=0
+                ),
+                widget.ThermalSensor(
+                    fontsize=FONT_SIZE,
                 ),
                 widget.Spacer(
                     length=10
