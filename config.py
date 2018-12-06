@@ -17,6 +17,10 @@ from libqtile import layout, bar, widget, extension
 import fontawesome as fa
 import copy
 
+import subprocess
+from time import time
+from pathlib import Path
+
 # ----------------------------
 # -------- Colors ------------
 # ----------------------------
@@ -106,6 +110,24 @@ class WorkspaceBox(widget.GroupBox):
         else:
             return super().groups
 
+# ----------------------------
+# ------ Screen Shots --------
+# ----------------------------
+
+def screenshot(save=True, copy=True):
+    def f(qtile):
+        path = Path.home() / 'Pictures' / 'screenshots'
+        path /= f'screenshot_{str(int(time() * 100))}.png'
+        shot = subprocess.run(['maim'], stdout=subprocess.PIPE)
+
+        if save:
+            with open(path, 'wb') as sc:
+                sc.write(shot.stdout)
+
+        if copy:
+            subprocess.run(['xclip', '-selection', 'clipboard', '-t',
+                            'image/png'], input=shot.stdout)
+    return f
 
 # ----------------------------
 # -------- Hotkeys -----------
@@ -177,6 +199,10 @@ keys = [
     Key([mod], 'm', lazy.spawn('xfce4-appfinder')),
     #Key([mod], 'm', lazy.spawn('dmenu_run -i -b -p ">>>" -fn "Open Sans-10" -nb "#000" -nf "#fff" -sb "#00BF32" -sf "#fff"')),
     #Key([mod], 'm', lazy.run_extension(extension.J4DmenuDesktop()))
+
+    # screenshots
+    Key([], 'Print', lazy.function(screenshot())),
+    Key([mod], 'Print', lazy.spawn('deepin-screenshot'))
 ]
 
 
