@@ -15,6 +15,7 @@ from libqtile.command import lazy
 from libqtile import layout, bar, widget, extension
 
 import fontawesome as fa
+import copy
 
 # ----------------------------
 # -------- Colors ------------
@@ -69,6 +70,11 @@ COLS = {
 # ----- Workspace Box --------
 # ----------------------------
 
+def group_as_workspace(g):
+    cloned = copy.copy(g)
+    cloned.label = cloned.name[1:2]
+    return cloned
+
 class WorkspaceBox(widget.GroupBox):
     def __init__(self, **config):
         widget.GroupBox.__init__(self, **config)
@@ -81,7 +87,12 @@ class WorkspaceBox(widget.GroupBox):
         their label. Groups with an empty string as label are never contained.
         Groups that are not named in visible_groups are not returned.
         """
-        return map(lambda g: Group(g.name, label = g.label), widget.GroupBox.groups)
+        if super().groups:
+            return list(map(group_as_workspace, super().groups))
+            #return list(map(lambda g: Group(g.name), super().groups))
+        else:
+            return super().groups
+
 
 # ----------------------------
 # -------- Hotkeys -----------
@@ -319,10 +330,31 @@ screens = [
                     fontsize=(FONT_SIZE*5.15),
                     padding=-1
                 ),
+                WorkspaceBox(
+                    visible_groups=get_workspace_groups(wsp['current']),
+                    spacing=0,
+                    font="font-awesome",
+
+                    other_current_screen_border=GROUP_SELECTED_BG, #COLS["orange_0"],
+                    this_current_screen_border=GROUP_SELECTED_BG,    #COLS["blue_0"],
+                    other_screen_border=GROUP_SELECTED_BG, #COLS["orange_0"],
+                    this_screen_border=GROUP_SELECTED_BG,  #COLS["blue_0"],
+                    highlight_color=GROUP_SELECTED_BG, #COLS["blue_0"],
+                    urgent_border=GROUP_URGENT_BORDER, #COLS["red_1"],
+                    background=GROUP_BG,
+                    highlight_method="line",
+                    inactive=GROUP_FG,
+                    active=GROUP_ACTIVE_FG,
+                    disable_drag=True,
+                    borderwidth=2,
+                    fontsize=FONT_SIZE,
+                    foreground=GROUP_FG
+                  ),
                 widget.TextBox(
                     font="font-awesome",
                     foreground=GROUP_FG,
-                    text=(fa.icons['window-restore'] + " -> "),
+                    background=GROUP_BG,
+                    text=(" -> "),
                     fontsize=FONT_SIZE,
                     spacing=0
                 ),
