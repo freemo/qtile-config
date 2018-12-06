@@ -68,12 +68,13 @@ COLS = {
 
 ALERT_COLOR="#FF0000"
 GROUP_URGENT_BORDER = ALERT_COLOR
-GROUP_FG = "#888888"
-GROUP_ACTIVE_FG="#000000"
+GROUP_FG = "#000000"
+GROUP_INACTIVE_FG = "#888888"
+GROUP_ACTIVE_FG=GROUP_FG
 GROUP_SELECTED_BG="#bbbbbb"
 GROUP_BG = "#ffffff"
-GROUP_OTHER_BORDER='404040'
-GROUP_THIS_BORDER='215578'
+GROUP_OTHER_BORDER='#00004F'
+GROUP_THIS_BORDER="#0000FF"
 FONT_SIZE=18
 #ICON_SIZE=30
 #ICON_PADDING=-10
@@ -355,10 +356,10 @@ screens = [
                     urgent_border=GROUP_URGENT_BORDER,
                     background=GROUP_BG,
                     highlight_method="line",
-                    inactive=GROUP_FG,
+                    inactive=GROUP_INACTIVE_FG,
                     active=GROUP_ACTIVE_FG,
                     disable_drag=True,
-                    borderwidth=2,
+                    borderwidth=4,
                     fontsize=FONT_SIZE,
                     foreground=GROUP_FG
                   ),
@@ -383,12 +384,12 @@ screens = [
                     highlight_color=GROUP_SELECTED_BG,
                     urgent_border=GROUP_URGENT_BORDER,
                     highlight_method="line",
-                    inactive=GROUP_FG,
+                    inactive=GROUP_INACTIVE_FG,
                     active=GROUP_ACTIVE_FG,
                     disable_drag=True,
-                    borderwidth=2,
+                    borderwidth=4,
                     fontsize=FONT_SIZE,
-                    foreground=GROUP_FG
+                    foreground=GROUP_INACTIVE_FG
                   ),
                 widget.TextBox(
                     font="Arial", 
@@ -412,7 +413,8 @@ screens = [
                     padding=0
                 ),
                 widget.NetGraph(
-                    bandwidth_type="up"
+                    bandwidth_type="up",
+                    type="box"
                 ),
                 widget.Spacer(
                     length=10
@@ -424,7 +426,8 @@ screens = [
                     padding=0
                 ),
                 widget.NetGraph(
-                    bandwidth_type="down"
+                    bandwidth_type="down",
+                    type="box"
                 ),
                 widget.Spacer(
                     length=10
@@ -435,7 +438,9 @@ screens = [
                     fontsize=FONT_SIZE,
                     padding=0
                 ),
-                widget.CPUGraph(),
+                widget.CPUGraph(
+                    type="box"
+                ),
                 widget.Spacer(
                     length=10
                 ),
@@ -445,7 +450,9 @@ screens = [
                     fontsize=FONT_SIZE,
                     padding=0
                 ),
-                widget.MemoryGraph(),
+                widget.MemoryGraph(
+                    type="box"
+                ),
                 widget.Spacer(
                     length=10
                 ),
@@ -456,7 +463,8 @@ screens = [
                     padding=0
                 ),
                 widget.HDDBusyGraph(
-                    device="nvme0n1"
+                    device="nvme0n1",
+                    type="box",
                 ),
                 widget.Spacer(
                     length=10
