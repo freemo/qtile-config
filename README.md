@@ -1,6 +1,7 @@
 to install
 
 1. make sure font-awesome is installed on your system.
+2. isntall font-logos.
 
 Optionally adjust :
 

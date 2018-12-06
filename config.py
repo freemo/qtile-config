@@ -66,6 +66,18 @@ COLS = {
     'deus_5': '#101A28',
 }
 
+ALERT_COLOR="#FF0000"
+GROUP_URGENT_BORDER = ALERT_COLOR
+GROUP_FG = "#888888"
+GROUP_ACTIVE_FG="#000000"
+GROUP_SELECTED_BG="#bbbbbb"
+GROUP_BG = "#ffffff"
+GROUP_OTHER_BORDER='404040'
+GROUP_THIS_BORDER='215578'
+FONT_SIZE=18
+#ICON_SIZE=30
+#ICON_PADDING=-10
+
 # ----------------------------
 # ----- Workspace Box --------
 # ----------------------------
@@ -319,17 +331,6 @@ widget_defaults = dict(
     padding=3,
 )
 
-GROUP_URGENT_BORDER = "#FF0000"
-GROUP_FG = "#888888"
-GROUP_ACTIVE_FG="#000000"
-GROUP_SELECTED_BG="#bbbbbb"
-GROUP_BG = "#ffffff"
-GROUP_OTHER_BORDER='404040'
-GROUP_THIS_BORDER='215578'
-FONT_SIZE=18
-#ICON_SIZE=30
-#ICON_PADDING=-10
-
 screens = [
     Screen(
         top=bar.Bar(
@@ -338,7 +339,7 @@ screens = [
                     font="Arial",
                     foreground=GROUP_BG,
                     text="  ◢",
-                    fontsize=(FONT_SIZE*5.15),
+                    fontsize=(FONT_SIZE*5.25),
                     padding=-1
                 ),
                 WorkspaceBox(
@@ -373,7 +374,7 @@ screens = [
                     visible_groups=get_workspace_groups(wsp['current']),
                     spacing=0,
                     font="font-awesome",
-
+                    #padding=-1,
                     background=GROUP_BG,
                     other_current_screen_border=GROUP_OTHER_BORDER,
                     this_current_screen_border=GROUP_THIS_BORDER,
@@ -392,9 +393,9 @@ screens = [
                 widget.TextBox(
                     font="Arial", 
                     foreground=GROUP_BG,
-                    text="◤",
-                    fontsize=(FONT_SIZE*5.15),
-                    padding=-1
+                    text="◤  ",
+                    fontsize=(FONT_SIZE*5.25),
+                    padding=-20
                 ),
                 widget.Prompt(
                     prompt="run: ",
@@ -404,32 +405,132 @@ screens = [
                 widget.WindowName(
                     fontsize=FONT_SIZE
                 ),
+                widget.TextBox(
+                    font="font-awesome",
+                    text=(""),
+                    fontsize=FONT_SIZE,
+                    padding=0
+                ),
+                widget.NetGraph(
+                    bandwidth_type="up"
+                ),
+                widget.Spacer(
+                    length=10
+                ),
+                widget.TextBox(
+                    font="font-awesome",
+                    text=(""),
+                    fontsize=FONT_SIZE,
+                    padding=0
+                ),
+                widget.NetGraph(
+                    bandwidth_type="down"
+                ),
+                widget.Spacer(
+                    length=10
+                ),
+                widget.TextBox(
+                    font="font-awesome",
+                    text=(""),
+                    fontsize=FONT_SIZE,
+                    padding=0
+                ),
+                widget.CPUGraph(),
+                widget.Spacer(
+                    length=10
+                ),
+                widget.TextBox(
+                    font="font-awesome",
+                    text=(""),
+                    fontsize=FONT_SIZE,
+                    padding=0
+                ),
+                widget.MemoryGraph(),
+                widget.Spacer(
+                    length=10
+                ),
+                widget.TextBox(
+                    font="font-awesome",
+                    text=(""),
+                    fontsize=FONT_SIZE,
+                    padding=0
+                ),
+                widget.HDDBusyGraph(
+                    device="nvme0n1"
+                ),
+                widget.Spacer(
+                    length=10
+                ),
+                widget.TextBox(
+                    font="font-awesome",
+                    text=(""),
+                    fontsize=FONT_SIZE,
+                    padding=0
+                ),
+                widget.ThermalSensor(
+                    fontsize=FONT_SIZE,
+                ),
+                widget.Spacer(
+                    length=100
+                ),
+                widget.CheckUpdates(
+                    fontsize=FONT_SIZE,
+                    display_format=" {updates}",
+                    font="font-logos",
+                    colour_have_updates=ALERT_COLOR,
+                    #padding=15
+                ),
+                widget.Spacer(
+                    length=10
+                ),
+                widget.Sep(),
+                widget.Spacer(
+                    length=10
+                ),
+                widget.TextBox(
+                    font="font-awesome",
+                    text=(""),
+                    fontsize=FONT_SIZE,
+                    padding=0
+                ),
+                widget.Spacer(
+                    length=5
+                ),
+                widget.Volume(
+                    fontsize=FONT_SIZE,
+                    update_interval=2
+                ),
+                widget.Spacer(
+                    length=10
+                ),
+                widget.Sep(),
+                widget.Spacer(
+                    length=10
+                ),
+                widget.TextBox(
+                    font="font-awesome",
+                    text=(""),
+                    fontsize=FONT_SIZE,
+                    padding=0
+                ),
+                widget.Spacer(
+                    length=5
+                ),
+                widget.DF(
+                    fontsize=FONT_SIZE,
+                    warn_space=5,
+                    visible_on_warn=False,
+                    warn_color=ALERT_COLOR,
+                ),
+                widget.Spacer(
+                    length=50
+                ),
                 widget.Systray(
                     #icon_size=ICON_SIZE,
                     #padding=ICON_PADDING
                 ),
-                widget.Mpris2(
-                    fontsize=FONT_SIZE
-                ),
-                widget.DF(
-                    fontsize=FONT_SIZE,
-                    warn_size=5
-                ),
-                widget.CheckUpdates(
-                    fontsize=FONT_SIZE,
-                ),
-                widget.NetGraph(),
-                widget.CPUGraph(),
-                widget.MemoryGraph(),
-                widget.ThermalSensor(
-                    fontsize=FONT_SIZE,
-                ),
-                widget.Volume(
-                    fontsize=FONT_SIZE,
-                update_interval=2
-                ),
-                widget.BatteryIcon(
-                    fontsize=FONT_SIZE,
+                widget.Spacer(
+                    length=10
                 ),
                 widget.Clock(
                     fontsize=FONT_SIZE,
