@@ -414,7 +414,8 @@ screens = [
                 ),
                 widget.NetGraph(
                     bandwidth_type="up",
-                    type="box"
+                    type="linefill",
+                    line_width=1
                 ),
                 widget.Spacer(
                     length=10
@@ -427,7 +428,8 @@ screens = [
                 ),
                 widget.NetGraph(
                     bandwidth_type="down",
-                    type="box"
+                    type="linefill",
+                    line_width=1
                 ),
                 widget.Spacer(
                     length=10
@@ -439,7 +441,8 @@ screens = [
                     padding=0
                 ),
                 widget.CPUGraph(
-                    type="box"
+                    type="linefill",
+                    line_width=1
                 ),
                 widget.Spacer(
                     length=10
@@ -451,7 +454,8 @@ screens = [
                     padding=0
                 ),
                 widget.MemoryGraph(
-                    type="box"
+                    type="linefill",
+                    line_width=1
                 ),
                 widget.Spacer(
                     length=10
@@ -464,7 +468,8 @@ screens = [
                 ),
                 widget.HDDBusyGraph(
                     device="nvme0n1",
-                    type="box",
+                    type="linefill",
+                    line_width=1
                 ),
                 widget.Spacer(
                     length=10
