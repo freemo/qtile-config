@@ -214,6 +214,11 @@ def get_workspace_groups(workspace):
     """
     return [ get_group_name(workspace, room) for room in rooms]
 
+def get_room_groups(room):
+    """ Get list of Groups that belongs to room.
+    """
+    return [ get_group_name(w, room) for w,_ in workspaces]
+
 def to_workspace(workspace):
     """ Change current workspace to another one.
     """
@@ -236,6 +241,8 @@ def to_workspace(workspace):
         # we also need to change subset of visible groups in the GroupBox widget
         qtile.widgetMap['groupbox'].visible_groups=get_workspace_groups(workspace)
         qtile.widgetMap['groupbox'].draw()
+        qtile.widgetMap['workspacebox'].visible_groups=get_room_groups(wsp[workspace]['active_group'][:1])
+        qtile.widgetMap['workspacebox'].draw()
         # You can do some other cosmetic stuff here.
         # For example, change Bar background depending on the current workspace.
         # # qtile.widgetMap['groupbox'].bar.background="ff0000"
@@ -246,6 +253,8 @@ def to_room(room):
     """
     def f(qtile):
         global wsp
+        qtile.widgetMap['workspacebox'].visible_groups=get_room_groups(room)
+        qtile.widgetMap['workspacebox'].draw()
         qtile.groupMap[get_group_name(wsp['current'], room)].cmd_toscreen()
     return f
 
@@ -331,7 +340,7 @@ screens = [
                     padding=-1
                 ),
                 WorkspaceBox(
-                    visible_groups=get_workspace_groups(wsp['current']),
+                    visible_groups=get_room_groups("1"),
                     spacing=0,
                     font="font-awesome",
 
@@ -354,9 +363,9 @@ screens = [
                     font="font-awesome",
                     foreground=GROUP_FG,
                     background=GROUP_BG,
-                    text=(" -> "),
+                    text=("→"),
                     fontsize=FONT_SIZE,
-                    spacing=0
+                    padding=15
                 ),
                 widget.GroupBox(
                     visible_groups=get_workspace_groups(wsp['current']),
