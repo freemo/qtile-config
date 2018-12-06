@@ -70,13 +70,16 @@ COLS = {
     'deus_5': '#101A28',
 }
 
+BG_COLOR = "#000000"
+FG_COLOR = "#FFFFFF"
 ALERT_COLOR="#FF0000"
+
 GROUP_URGENT_BORDER = ALERT_COLOR
-GROUP_FG = "#000000"
+GROUP_FG = BG_COLOR
 GROUP_INACTIVE_FG = "#888888"
 GROUP_ACTIVE_FG=GROUP_FG
 GROUP_SELECTED_BG="#bbbbbb"
-GROUP_BG = "#ffffff"
+GROUP_BG = FG_COLOR
 GROUP_OTHER_BORDER='#00004F'
 GROUP_THIS_BORDER="#0000FF"
 FONT_SIZE=18
@@ -431,6 +434,31 @@ screens = [
                 ),
                 widget.WindowName(
                     fontsize=FONT_SIZE
+                ),
+                widget.Spacer(
+                    length=50
+                ),
+                widget.TextBox(
+                    font="font-awesome",
+                    text=(""),
+                    fontsize=FONT_SIZE,
+                    padding=0
+                ),
+                widget.Spacer(
+                    length=10
+                ),
+                widget.Mpris2(
+                    background=BG_COLOR,
+                    foreground=FG_COLOR,
+                    name='spotify',
+                    stop_pause_text='',
+                    fontsize=FONT_SIZE,
+                    scroll_chars=None,
+                    display_metadata=['xesam:title', 'xesam:artist'],
+                    objname="org.mpris.MediaPlayer2.spotify",
+                ),
+                widget.Spacer(
+                    length=75
                 ),
                 widget.TextBox(
                     font="font-awesome",
