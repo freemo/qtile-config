@@ -187,7 +187,7 @@ keys = [
 
     # System hotkeys
     Key([], "Print", lazy.spawn("scrot -e 'mv $f /home/user/screenshots/'")),
-    Key([mod, "shift", "control"], "h", lazy.spawn("systemctl hibernate")),
+    Key([mod, "shift", "control"], "h", lazy.spawn("sudo systemctl hibernate")),
     Key([mod, "shift", "control"], "r", lazy.restart()),
     Key([mod, "shift", "control"], "q", lazy.shutdown()),
     Key([mod], "u", lazy.spawn("terminator -e \"yay -Syu --devel && read -p \\\"Press enter to continue\\\"\"")),
